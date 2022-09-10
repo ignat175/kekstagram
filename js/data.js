@@ -1,3 +1,9 @@
+const getRandomInt = (min, max) => {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 const getComment = () => {
     return {
         id: 10,
@@ -7,10 +13,10 @@ const getComment = () => {
     };
 };
 
-const getPhoto = () => {
+const getPicture = () => {
     return {
-        id: 23,
-        url: './photos/23.jpg',
+        id: 24,
+        url: `./photos/${getRandomInt(1, 25)}.jpg`,
         description: 'Schwarzwald',
         likes: 200,
         comments: [
@@ -21,17 +27,17 @@ const getPhoto = () => {
     };
 }
 
-const getPhotos = (count) => {
-    const photos = [];
+const getPictures = (count) => {
+    const pictures = [];
 
     let i = 0;
     while (i < count) {
-        photos.push(getPhoto());
+        pictures.push(getPicture());
         i++;
     }
 
-    return photos;
+    return pictures;
 }
 
-console.log(getPhotos(25));
+console.log(getPictures(25));
 
