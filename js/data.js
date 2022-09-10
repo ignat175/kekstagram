@@ -1,32 +1,37 @@
-function getPhoto () {
+const getComment = () => {
+    return {
+        id: 10,
+        avatar: './img/avatar.svg',
+        message: 'красивое фото',
+        name: 'NIK'
+    };
+};
+
+const getPhoto = () => {
     return {
         id: 23,
         url: './photos/23.jpg',
         description: 'Schwarzwald',
         likes: 200,
         comments: [
-            {
-                id: 10,
-                avatar: './img/avatar.svg',
-                message: 'красивое фото',
-                name: 'NIK'
-            },
-            {
-                id: 10,
-                avatar: './img/avatar.svg',
-                message: 'красивое фото',
-                name: 'NIK'
-            },
+            getComment(),
+            getComment(),
+            getComment(),
         ]
     };
 }
 
-function getPhotos (count) {
-    return [
-        getPhoto(),
-        getPhoto(),
-        getPhoto(),
-    ];
+const getPhotos = (count) => {
+    const photos = [];
+
+    let i = 0;
+    while (i < count) {
+        photos.push(getPhoto());
+        i++;
+    }
+
+    return photos;
 }
 
 console.log(getPhotos(25));
+
