@@ -1,43 +1,48 @@
-const getRandomInt = (min, max) => {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-const getComment = () => {
+/**
+ * @returns {object}
+ */
+const generateComment = () => {
     return {
         id: 10,
-        avatar: './img/avatar.svg',
+        avatar: './img/avatar-1.svg',
         message: 'красивое фото',
         name: 'NIK'
     };
 };
 
-const getPicture = () => {
+/**
+ * @returns {object}
+ */
+const generatePicture = () => {
+    const comments = [];
+    
+    let i = 0;
+    while (i < getRandomInt(0, 10)) {
+        comments.push(generateComment());
+        i++;
+    }
+
     return {
-        id: 24,
-        url: `./photos/${getRandomInt(1, 25)}.jpg`,
-        description: 'Schwarzwald',
-        likes: 200,
-        comments: [
-            getComment(),
-            getComment(),
-            getComment(),
-        ]
+        id: getRandomInt(1, PICTURE_COUNT),
+        url: `./photos/${getRandomInt(1, PICTURE_COUNT)}.jpg`,
+        description: getRandomArrayElement(PICTURE_DESCRIPTIONS),
+        likes: getRandomInt(MIN_LIKE_COUNT, MAX_LIKE_COUNT),
+        comments: comments
     };
 }
 
-const getPictures = (count) => {
+/**
+ * @param {number} count
+ * @returns {object}
+ */
+const generatePictures = (count) => {
     const pictures = [];
 
     let i = 0;
     while (i < count) {
-        pictures.push(getPicture());
+        pictures.push(generatePicture());
         i++;
     }
 
     return pictures;
 }
-
-console.log(getPictures(25));
-
