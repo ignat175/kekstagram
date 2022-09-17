@@ -3,10 +3,10 @@
  */
 const generateComment = () => {
     return {
-        id: 10,
-        avatar: './img/avatar-1.svg',
-        message: 'красивое фото',
-        name: 'NIK'
+        id: getRandomInt(1, MAX_COMMENT_COUNT),
+        avatar: `./img/avatar-${getRandomInt(1, 6)}.svg`,
+        message: getRandomArrayElement(COMMENT_MESSAGES),
+        name: getRandomArrayElement(COMMENT_NAMES),
     };
 };
 

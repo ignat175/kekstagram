@@ -1,3 +1,8 @@
+// const templateElement = document.querySelector('#picture');
+const templateElement = document.getElementById('picture');
+const templateContent = templateElement.content;
+const pictureTemplate = templateContent.querySelector('.picture');
+
 /**
  * @param {object} pictures
  * @return {undefined}
