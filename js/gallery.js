@@ -3,6 +3,8 @@ const templateElement = document.getElementById('picture');
 const templateContent = templateElement.content;
 const pictureTemplate = templateContent.querySelector('.picture');
 
+
+
 /**
  * @param {object} pictures
  * @return {undefined}
@@ -14,23 +16,25 @@ const renderPictures = (pictures) => {
     while (i < pictures.length) {
         const picture = pictures[i];
 
-        const html = `
-            <a href="#" class="picture">
-                <img
-                    class="picture__img"
-                    src="${picture.url}"
-                    width="182"
-                    height="182"
-                    alt="${picture.description}"
-                >
-                <p class="picture__info">
-                    <span class="picture__comments">${picture.comments.length}</span>
-                    <span class="picture__likes">${picture.likes}</span>
-                </p>
-            </a>
-        `;
+        const p = pictureTemplate.cloneNode(true);  
+        p.querySelector('img').setAttribute('src', picture.url);
+        // const html = `
+        //     <a href="#" class="picture">
+        //         <img
+        //             class="picture__img"
+        //             src="${picture.url}"
+        //             width="182"
+        //             height="182"
+        //             alt="${picture.description}"
+        //         >
+        //         <p class="picture__info">
+        //             <span class="picture__comments">${picture.comments.length}</span>
+        //             <span class="picture__likes">${picture.likes}</span>
+        //         </p>
+        //     </a>
+        // `;
    
-        picturesElement.insertAdjacentHTML('beforeend', html);
+        picturesElement.insertAdjacentElement('beforeend', p);
         i++;
     }
 };
