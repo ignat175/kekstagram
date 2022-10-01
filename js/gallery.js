@@ -1,36 +1,35 @@
-// const templateElement = document.querySelector('#picture');
 const templateElement = document.getElementById('picture');
 const templateContent = templateElement.content;
 const pictureTemplate = templateContent.querySelector('.picture');
-
-
 
 /**
  * @param {object} pictures
  * @return {undefined}
  */
 const renderPictures = (pictures) => {
-    const picturesElement = document.querySelector('.pictures');
+    const picturesContainer = document.querySelector('.pictures');
+    const fragment = document.createDocumentFragment();
 
     let i = 0;
     while (i < pictures.length) {
         const picture = pictures[i];
 
-        const pictureClone = pictureTemplate.cloneNode(true);  
+        const pictureClone = pictureTemplate.cloneNode(true);
         pictureClone.querySelector('.picture__likes').textContent = picture.likes;
         pictureClone.querySelector('.picture__comments').textContent = picture.comments.length;
 
         const imgElement = pictureClone.querySelector('img');
         imgElement.setAttribute('src', picture.url);
         imgElement.setAttribute('alt', picture.description);
-   
-        picturesElement.insertAdjacentElement('beforeend', pictureClone);
+
+        fragment.append(pictureClone);
         i++;
     }
+
+    picturesContainer.append(fragment);
 };
 
-// const pictures = generatePictures(PICTURE_COUNT);
-const pictures = generatePictures(5);
+const pictures = generatePictures(PICTURE_COUNT);
 
 renderPictures(pictures);
 console.log(pictures);
