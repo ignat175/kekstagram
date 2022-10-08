@@ -7,10 +7,16 @@ const getUniqueId = function (maxEntityId) {
         this.usedEntityIds = [];
     }
 
-    let entityId = getRandomInt(1, maxEntityId);
-    while (this.usedEntityIds.includes(entityId)) {
-        entityId = getRandomInt(1, maxEntityId);
-    }
+    // let entityId = getRandomInt(1, maxEntityId);
+    // while (this.usedEntityIds.includes(entityId)) {
+    //     entityId = getRandomInt(1, maxEntityId);
+    // }
+
+    let entityId;
+    do {
+      entityId = getRandomInt(1, maxEntityId);
+    } while (this.usedEntityIds.includes(entityId));
+
     this.usedEntityIds.push(entityId);
 
     return entityId;

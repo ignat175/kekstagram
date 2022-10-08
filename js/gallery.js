@@ -16,6 +16,7 @@ const renderPictures = (pictures) => {
         const picture = pictures[i];
 
         const pictureClone = pictureTemplate.cloneNode(true);
+        pictureClone.dataset.id = picture.id;
         pictureClone.querySelector('.picture__likes').textContent = picture.likes;
         pictureClone.querySelector('.picture__comments').textContent = picture.comments.length;
 
