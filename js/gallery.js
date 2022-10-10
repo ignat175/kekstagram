@@ -1,14 +1,14 @@
 const picturesContainer = document.querySelector('.pictures');
 
-const templateElement = document.getElementById('picture');
-const templateContent = templateElement.content;
-const pictureTemplate = templateContent.querySelector('.picture');
-
 /**
  * @param {object} pictures
  * @return {undefined}
  */
 const renderPictures = (pictures) => {
+    const templateElement = document.getElementById('picture');
+    const templateContent = templateElement.content;
+    const pictureTemplate = templateContent.querySelector('.picture');
+
     const fragment = document.createDocumentFragment();
 
     let i = 0;

@@ -42,7 +42,7 @@ const generatePicture = (maxPictureId) => ({
     url: `./photos/${getRandomInt(1, PICTURE_COUNT)}.jpg`,
     description: getRandomArrayElement(PICTURE_DESCRIPTIONS),
     likes: getRandomInt(MIN_LIKE_COUNT, MAX_LIKE_COUNT),
-    comments: Array.from({length: getRandomInt(9, MAX_COMMENT_COUNT)}, () => generateComment(maxPictureId))
+    comments: Array.from({length: getRandomInt(0, MAX_COMMENT_COUNT)}, () => generateComment(maxPictureId))
 });
 
 /**
