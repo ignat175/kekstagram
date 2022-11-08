@@ -1,3 +1,27 @@
+import { getRandomInt, getRandomArrayElement } from "./util.js";
+
+const MIN_LIKE_COUNT = 15;
+const MAX_LIKE_COUNT = 200;
+const MAX_COMMENT_COUNT = 10;
+
+const PICTURE_DESCRIPTIONS = [
+    'Schwarz1',
+    'Schwarz2',
+    'Schwarz3',
+];
+
+const COMMENT_MESSAGES = [
+    'коммментарий1',
+    'коммментарий2',
+    'коммментарий3',
+];
+
+const COMMENT_NAMES = [
+    'name1',
+    'name2',
+    'name3',
+];
+
 /**
  * @param maxEntityId
  * @returns {number}
@@ -39,7 +63,7 @@ const generateComment = (maxPictureId) => ({
  */
 const generatePicture = (maxPictureId) => ({
     id: getUniqueId.call(generatePicture, maxPictureId),
-    url: `./photos/${getRandomInt(1, PICTURE_COUNT)}.jpg`,
+    url: `./photos/${getRandomInt(1, maxPictureId)}.jpg`,
     description: getRandomArrayElement(PICTURE_DESCRIPTIONS),
     likes: getRandomInt(MIN_LIKE_COUNT, MAX_LIKE_COUNT),
     comments: Array.from({length: getRandomInt(0, MAX_COMMENT_COUNT)}, () => generateComment(maxPictureId))
@@ -50,3 +74,5 @@ const generatePicture = (maxPictureId) => ({
  * @returns {object}
  */
 const generatePictures = (count) => Array.from({length: count}, () => generatePicture(count));
+
+export {generatePictures};

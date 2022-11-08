@@ -1,6 +1,13 @@
 const fullScreenModalElement = document.querySelector('.big-picture');
 const fullScreenModalCloseElement = document.querySelector('#picture-cancel');
 const previewElement = document.querySelector('.big-picture__preview');
+const picturesContainerElement = document.querySelector('.pictures');
+
+const documentKeydownHandler = (evt) => {
+    if (evt.code === 'Escape') {
+        closeFullScreenModal();
+    }
+};
 
 const openFullScreenModal = () => {
     fullScreenModalElement.classList.remove('hidden');
@@ -36,8 +43,8 @@ const renderComments = (comments) => {
     }
 };
 
-picturesContainer.addEventListener('click', (evt) => {
-    const pictureElement = evt.target.closest('.picture');
+const pictureClickHandler = (evt, pictures) => {
+    const pictureElement = evt.target.closest('.picture');  
 
     if (pictureElement) {
         const id = pictureElement.dataset.id;
@@ -54,17 +61,13 @@ picturesContainer.addEventListener('click', (evt) => {
         renderComments(picture.comments);
         openFullScreenModal();
     }
-});
-
-const documentKeydownHandler = (evt) => {
-    if (evt.code === 'Escape') {
-        closeFullScreenModal();
-    }
 };
 
-fullScreenModalCloseElement.addEventListener('click', closeFullScreenModal);
-fullScreenModalElement.addEventListener('click', closeFullScreenModal);
+const setFullScreenModalHandlers = (pictures) => {
+    fullScreenModalCloseElement.addEventListener('click', closeFullScreenModal);
+    picturesContainerElement.addEventListener('click', (evt) => {
+        pictureClickHandler(evt, pictures);
+    });
+};
 
-previewElement.addEventListener('click', (evt) => {
-    evt.stopPropagation();
-});
+export {setFullScreenModalHandlers};

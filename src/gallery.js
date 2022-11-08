@@ -1,9 +1,5 @@
 const picturesContainer = document.querySelector('.pictures');
 
-/**
- * @param {object} pictures
- * @return {undefined}
- */
 const renderPictures = (pictures) => {
     const templateElement = document.getElementById('picture');
     const templateContent = templateElement.content;
@@ -31,7 +27,4 @@ const renderPictures = (pictures) => {
     picturesContainer.append(fragment);
 };
 
-const pictures = generatePictures(PICTURE_COUNT);
-
-renderPictures(pictures);
-console.log(pictures);
+export {renderPictures};
