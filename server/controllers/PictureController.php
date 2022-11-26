@@ -20,11 +20,7 @@ class PictureController extends ActiveController
         $behaviors['corsFilter'] = [
             'class' => Cors::class,
             'cors' => [
-                'Origin' => [Yii::$app->params['corsOrigin']],
-
-                'Access-Control-Request-Method' => ['GET'],
-                'Access-Control-Allow-Credentials' => true,
-                'Access-Control-Max-Age' => 3600,
+                'Origin' => [Yii::$app->params['origin']],
             ],
         ];
         return $behaviors;
