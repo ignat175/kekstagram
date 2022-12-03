@@ -1,7 +1,7 @@
 const fullScreenModalElement = document.querySelector('.big-picture');
 const fullScreenModalCloseElement = document.querySelector('#picture-cancel');
 const previewElement = document.querySelector('.big-picture__preview');
-const picturesContainerElement = document.querySelector('.pictures');
+const picturesListElement = document.querySelector('.pictures');
 
 const documentKeydownHandler = (evt) => {
     if (evt.code === 'Escape') {
@@ -11,11 +11,13 @@ const documentKeydownHandler = (evt) => {
 
 const openFullScreenModal = () => {
     fullScreenModalElement.classList.remove('hidden');
+    fullScreenModalCloseElement.addEventListener('click', closeFullScreenModal);
     document.addEventListener('keydown', documentKeydownHandler);
 };
 
 const closeFullScreenModal = () => {
     fullScreenModalElement.classList.add('hidden');
+    fullScreenModalCloseElement.removeEventListener('click', closeFullScreenModal);
     document.removeEventListener('keydown', documentKeydownHandler);
 };
 
@@ -52,8 +54,11 @@ const pictureClickHandler = (evt, pictures) => {
         const picture = pictures.find((picture) => picture.id === +id);
 
         const imgElement = previewElement.querySelector('img');
-        imgElement.setAttribute('src', picture.url);
+        imgElement.setAttribute('src', 'http://localhost/uploads/' + picture.url);
         imgElement.setAttribute('alt', picture.description);
+
+        imgElement.style.objectFit = 'cover';
+        imgElement.style.objectPosition = 'center';
 
         previewElement.querySelector('.social__caption').textContent = picture.description;
         previewElement.querySelector( '.likes-count').textContent = String(picture.likes);
@@ -64,11 +69,4 @@ const pictureClickHandler = (evt, pictures) => {
     }
 };
 
-const setFullScreenModalHandlers = (pictures) => {
-    fullScreenModalCloseElement.addEventListener('click', closeFullScreenModal);
-    picturesContainerElement.addEventListener('click', (evt) => {
-        pictureClickHandler(evt, pictures);
-    });
-};
-
-export {setFullScreenModalHandlers};
+export {pictureClickHandler};

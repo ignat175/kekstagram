@@ -9,7 +9,7 @@ const getData = (onSuccess) => {
 
     xhr.addEventListener('load', () => {
         if (xhr.status === 200 ) {
-            const pictures = JSON.parse(xhr.response);
+            const pictures = xhr.response;
             onSuccess(pictures);
         }
     });
@@ -24,8 +24,8 @@ const sendData = (onSuccess, body) => {
     xhr.addEventListener('load', () => {
         if (xhr.status === 201) {
             onSuccess();
-            console.log(xhr.response);
-            console.log(JSON.parse(xhr.response));
+            // console.log(xhr.response);
+            // console.log(JSON.parse(xhr.response));
         }
     });
 

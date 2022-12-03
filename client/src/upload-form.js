@@ -28,6 +28,11 @@ const updateUploadPreview = (file) => {
 }
 
 const openUploadModal = (evt) => {
+    uploadPreviewImgElement.style.width = '586px';
+    uploadPreviewImgElement.style.height = '586px';
+    uploadPreviewImgElement.style.objectFit = 'cover';
+    uploadPreviewImgElement.style.objectPosition = 'center';
+
     updateUploadPreview(evt.target.files[0]);
     uploadModalElement.classList.remove('hidden');
     document.addEventListener('keydown', documentKeydownHandler);
