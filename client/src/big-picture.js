@@ -57,6 +57,11 @@ const pictureClickHandler = (evt, pictures) => {
         imgElement.setAttribute('src', 'http://localhost/uploads/' + picture.url);
         imgElement.setAttribute('alt', picture.description);
 
+        const value = +picture.scale.replace('%', '');
+        imgElement.style.transform = 'scale(' + (value / 100) + ')';
+        console.log(picture);
+        console.log(picture.scale);
+
         imgElement.style.objectFit = 'cover';
         imgElement.style.objectPosition = 'center';
 

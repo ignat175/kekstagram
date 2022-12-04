@@ -4,6 +4,7 @@ import "./slider.js";
 import "./validation.js";
 import {setUploadFormSubmit} from "./upload-form.js";
 import {closeUploadModal} from "./upload-form.js";
+import "./zoom.js";
 
 const socket = new WebSocket('ws://127.0.0.1:2346');
 
