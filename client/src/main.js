@@ -5,6 +5,7 @@ import "./validation.js";
 import {setUploadFormSubmit} from "./upload-form.js";
 import {closeUploadModal} from "./upload-form.js";
 import "./zoom.js";
+import {showSuccessMessage} from "./messages";
 
 const socket = new WebSocket('ws://127.0.0.1:2346');
 
@@ -15,9 +16,10 @@ socket.addEventListener('open', (evt) => {
 
     setUploadFormSubmit(() => {
         closeUploadModal();
+        showSuccessMessage();
         getData((pictures) => {
-            renderPictures(JSON.parse(pictures));
             socket.send(pictures);
+            renderPictures(JSON.parse(pictures));
         });
     });
 });

@@ -1,5 +1,5 @@
 const Url = {
-    DATA: 'http://localhost:80/pictures?expand=comments',
+    DATA: 'http://localhost:80/pictures',
     SERVER: 'http://localhost:80/pictures',
 };
 
