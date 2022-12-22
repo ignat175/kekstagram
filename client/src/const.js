@@ -21,4 +21,5 @@ const COMMENT_NAMES = [
     'name3',
 ];
 
-
+export const MESSAGE_SUCCESS = 'success';
+export const MESSAGE_ERROR = 'error';

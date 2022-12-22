@@ -1,3 +1,5 @@
+import {getData} from "./api";
+
 const fullScreenModalElement = document.querySelector('.big-picture');
 const fullScreenModalCloseElement = document.querySelector('#picture-cancel');
 const previewElement = document.querySelector('.big-picture__preview');
@@ -50,7 +52,7 @@ const pictureClickHandler = (evt, pictures) => {
 
     if (pictureElement) {
         evt.preventDefault();
-        const id = pictureElement.dataset.id;
+        const id = getData.id = pictureElement.dataset.id;
         const picture = pictures.find((picture) => picture.id === +id);
 
         const imgElement = previewElement.querySelector('img');
@@ -63,7 +65,9 @@ const pictureClickHandler = (evt, pictures) => {
         imgElement.style.objectFit = 'cover';
         imgElement.style.objectPosition = 'center';
 
-        if (picture.effect_id === 2) {
+        if (picture.effect_id === 1) {
+            imgElement.style.filter = `unset`;
+        } else if (picture.effect_id === 2) {
             imgElement.style.filter = `grayscale(1)`;
         } else if (picture.effect_id === 3) {
             imgElement.style.filter = `sepia(1)`;
@@ -81,7 +85,9 @@ const pictureClickHandler = (evt, pictures) => {
 
         renderComments(picture.comments);
         openFullScreenModal();
+
+        document.querySelector('.social__footer [name=picture_id]').setAttribute('value', picture.id);
     }
 };
 
-export {pictureClickHandler};
+export {pictureClickHandler, renderComments};

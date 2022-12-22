@@ -61,7 +61,7 @@ const unblockSubmitButton = () => {
     submitButton.innerHTML = 'Опубликовать';
 };
 
-const setUploadFormSubmit = (onSuccess, onFail) => {
+const setPictureFormSubmit = (onSuccess, onFail) => {
     uploadFormElement.addEventListener('submit', (evt) => {
         evt.preventDefault();
 
@@ -83,4 +83,4 @@ const setUploadFormSubmit = (onSuccess, onFail) => {
     });
 };
 
-export {setUploadFormSubmit, closeUploadModal};
+export {setPictureFormSubmit, closeUploadModal};
