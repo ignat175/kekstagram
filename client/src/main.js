@@ -8,18 +8,21 @@ import "./zoom.js";
 import {showMessage} from "./messages";
 import {MESSAGE_ERROR, MESSAGE_SUCCESS} from "./const";
 import {setCommentFormSubmit} from "./comment-form";
-import {renderComments} from "./big-picture";
+import {renderCommentsList} from "./big-picture";
+import {setLikesCountClick, updateLikesCount} from "./likes";
 
 const socket = new WebSocket('ws://127.0.0.1:2346');
 
 const init = (callback = null) => {
     getData(
         (pictures) => {
+            console.log(pictures);
             renderPictures(pictures);
 
             if (callback) {
-                const picture = pictures.find((picture) => +picture.id === +getData.id);
-                callback(picture.comments);
+                const picture = pictures.find((picture) => +picture.id === +getData.picture.id);
+                getData.picture = picture;
+                callback(picture);
             }
         }
     );
@@ -46,9 +49,16 @@ socket.addEventListener('open', (evt) => {
 
     setCommentFormSubmit(
         () => {
-            init(renderComments);
+            init(renderCommentsList);
         }
     );
+
+    setLikesCountClick(
+        () => {
+            init(updateLikesCount)
+        }
+    );
+
 });
 
 socket.addEventListener('message', (evt) => {

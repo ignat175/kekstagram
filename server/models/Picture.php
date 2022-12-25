@@ -64,7 +64,7 @@ class Picture extends ActiveRecord
             [['user_id'], 'integer'],
             [['user_id'], 'exist', 'targetClass' => User::class, 'targetAttribute' => 'id'],
 
-            [['imageFile'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg'],
+            [['imageFile'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg, jpeg'],
         ];
     }
 
@@ -77,12 +77,11 @@ class Picture extends ActiveRecord
             'id',
             'url',
             'description',
-            'likes' => function () {
-                return count($this->likes);
-            },
+            'likes',
             'scale',
             'effect_id',
             'effect_level',
+            'comments',
         ];
     }
 
@@ -92,7 +91,6 @@ class Picture extends ActiveRecord
     public function extraFields(): array
     {
         return [
-            'comments',
             'hashtags',
         ];
     }

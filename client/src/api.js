@@ -27,5 +27,20 @@ const sendData = (url, onSuccess, onFail, body) => {
             alert(2);
         });
 };
+const deleteData = (url, onSuccess, onFail) => {
+    fetch(url, {
+        method: 'DELETE',
+    })
+        .then((response) => {
+            if (response.ok) {
+                onSuccess();
+            } else {
+                onFail();
+            }
+        })
+        .catch(() => {
+            alert(2);
+        });
+}
 
-export {getData, sendData};
+export {getData, sendData, deleteData};
