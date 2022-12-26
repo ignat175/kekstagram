@@ -958,8 +958,25 @@ main {
  * Спиннер загрузки комментариев и его анимация
  */
 
-.spinner::after,
+/* .spinner::after,
 .comments-loader:active::after {
+  content: "";
+  position: absolute;
+  left: 200px;
+  top: 7px;
+
+  color: #3b77c0;
+  font-size: 6px;
+
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+
+  animation: spinner 1.3s infinite linear;
+  transform: translateZ(0);
+} */
+
+.comments-loader--active {
   content: "";
   position: absolute;
   left: 200px;

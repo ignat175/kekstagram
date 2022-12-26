@@ -31,6 +31,16 @@ const closeFullScreenModal = () => {
     document.removeEventListener('keydown', documentKeydownHandler);
 };
 
+const blockLoaderButton = () => {
+    commentsLoaderElement.disabled = true;
+    commentsLoaderElement.innerHTML = 'Загрузка... <span class="comments-loader--active"></span>';
+};
+
+const unblockLoaderButton = () => {
+    commentsLoaderElement.disabled = false;
+    commentsLoaderElement.innerHTML = 'Загрузить еще';
+};
+
 let renderedCommentCount = 0;
 const setLoaderClick = function (picture) {
     if (this.onLoaderClick !== undefined) {
@@ -38,14 +48,18 @@ const setLoaderClick = function (picture) {
     }
 
     this.onLoaderClick = () => {
-        renderComments(picture.comments.slice(renderedCommentCount, renderedCommentCount + COMMENT_COUNT_PER_STEP));
-        previewElement.querySelector('.rendered-comments-count').textContent = String(renderedCommentCount);
-
-        if (picture.comments.length > renderedCommentCount) {
-            commentsLoaderElement.classList.remove('hidden');
-        } else {
-            commentsLoaderElement.classList.add('hidden');
-        }
+        blockLoaderButton();
+        setTimeout(() => {
+            renderComments(picture.comments.slice(renderedCommentCount, renderedCommentCount + COMMENT_COUNT_PER_STEP));
+            previewElement.querySelector('.rendered-comments-count').textContent = String(renderedCommentCount);
+            unblockLoaderButton();
+            
+            if (picture.comments.length > renderedCommentCount) {
+                commentsLoaderElement.classList.remove('hidden');
+            } else {
+                commentsLoaderElement.classList.add('hidden');
+            }
+        }, 1000);
     };
 
     commentsLoaderElement.addEventListener('click', this.onLoaderClick);
