@@ -12,6 +12,8 @@ const templateContent = templateElement.content;
 const commentTemplate = templateContent.querySelector('.social__comment');
 
 const commentsContainer = previewElement.querySelector('.social__comments');
+const totalComentCountElement = previewElement.querySelector('.comments-count');
+const renderedComentCountElement = previewElement.querySelector('.rendered-comments-count');
 
 const documentKeydownHandler = (evt) => {
     if (evt.code === 'Escape') {
@@ -41,7 +43,6 @@ const unblockLoaderButton = () => {
     commentsLoaderElement.innerHTML = 'Загрузить еще';
 };
 
-let renderedCommentCount = 0;
 const setLoaderClick = function (picture) {
     if (this.onLoaderClick !== undefined) {
         commentsLoaderElement.removeEventListener('click', this.onLoaderClick);
@@ -50,42 +51,41 @@ const setLoaderClick = function (picture) {
     this.onLoaderClick = () => {
         blockLoaderButton();
         setTimeout(() => {
-            renderComments(picture.comments.slice(renderedCommentCount, renderedCommentCount + COMMENT_COUNT_PER_STEP));
-            previewElement.querySelector('.rendered-comments-count').textContent = String(renderedCommentCount);
+            renderComments(picture.comments, this.renderedCommentCount, this.renderedCommentCount + COMMENT_COUNT_PER_STEP);
+            this.renderedCommentCount += COMMENT_COUNT_PER_STEP;
             unblockLoaderButton();
             
-            if (picture.comments.length > renderedCommentCount) {
-                commentsLoaderElement.classList.remove('hidden');
-            } else {
+            if (this.renderedCommentCount >= picture.comments.length) {
                 commentsLoaderElement.classList.add('hidden');
             }
         }, 1000);
     };
 
+    this.renderedCommentCount = 5;
     commentsLoaderElement.addEventListener('click', this.onLoaderClick);
 };
 
 const renderCommentsList = (picture) => {
+    commentsContainer.innerHTML = '';
+    renderedComentCountElement.textContent = 0;
+
     const end = Math.min(picture.comments.length, COMMENT_COUNT_PER_STEP);
-    const comments = picture.comments.slice(0, end);
+    
+    renderComments(picture.comments, 0, end);
+    totalComentCountElement.textContent = String(picture.comments.length);
 
-    previewElement.querySelector('.comments-count').textContent = String(picture.comments.length);
-    previewElement.querySelector('.rendered-comments-count').textContent = String(comments.length);
-
-    if (picture.comments.length > comments.length) {
+    if (picture.comments.length > COMMENT_COUNT_PER_STEP) {
         commentsLoaderElement.classList.remove('hidden');
     } else {
         commentsLoaderElement.classList.add('hidden');
     }
 
-    commentsContainer.innerHTML = '';
-    renderedCommentCount = 0;
-    renderComments(comments);
-
     setLoaderClick.call(renderCommentsList, picture);
 };
 
-const renderComments = (comments) => {
+const renderComments = (comments, from, to) => {
+    comments = comments.slice(from, to);
+
     let i = 0;
     while (i < comments.length) {
         const comment = comments[i];
@@ -98,10 +98,12 @@ const renderComments = (comments) => {
         imgElement.setAttribute('alt', comment.user.name);
 
         commentsContainer.append(commentClone);
-        renderedCommentCount++;
-        console.log(renderedCommentCount);
         i++;
     }
+
+    const oldValue = +renderedComentCountElement.textContent;
+    renderedComentCountElement.textContent = String(oldValue + i);
+
 };
 
 const pictureClickHandler = (evt, pictures) => {

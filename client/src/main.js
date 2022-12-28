@@ -16,7 +16,6 @@ const socket = new WebSocket('ws://127.0.0.1:2346');
 const init = (callback = null) => {
     getData(
         (pictures) => {
-            console.log(pictures);
             renderPictures(pictures);
 
             if (callback) {
