@@ -6,6 +6,14 @@ const filtersElement = document.querySelector('.img-filters');
 const filtersFormElement = filtersElement.querySelector('.img-filters__form');
 const filtarsButtonElements = filtersFormElement.querySelectorAll('.img-filters__button');
 
+
+const comparePictures = (pictureA, pictureB) => {
+    const a = pictureA.comments.length;
+    const b = pictureB.comments.length;
+    
+    return b - a;
+};
+
 const restoreHandlers = function (pictures) {
     if (this.onPictureClick !== undefined) {
         picturesListElement.removeEventListener('click', this.onPictureClick);
@@ -20,7 +28,16 @@ const restoreHandlers = function (pictures) {
             for (const button of filtarsButtonElements) {
                 button.classList.remove('img-filters__button--active');
             }
+
             evt.target.classList.add('img-filters__button--active');
+
+            if (evt.target.id === 'filter-default') {
+                renderPictures(pictures, true);
+            } else if (evt.target.id === 'filter-random') {
+                console.log(2);
+            } else if (evt.target.id === 'filter-discussed') {
+                renderPictures(pictures.slice().sort(comparePictures), true);
+            }
         } 
     }
 
@@ -28,7 +45,7 @@ const restoreHandlers = function (pictures) {
     filtersFormElement.addEventListener('click', this.onFilterClick);
 }
 
-const renderPictures = (pictures) => {
+const renderPictures = (pictures, sort = false) => {
     const templateElement = document.getElementById('picture');
     const templateContent = templateElement.content;
     const pictureTemplate = templateContent.querySelector('.picture');
@@ -72,8 +89,11 @@ const renderPictures = (pictures) => {
     Array.from(pictureElements).forEach((picture) => picture.remove());
     picturesListElement.append(fragment);
 
-    restoreHandlers.call(renderPictures, pictures);
     filtersElement.classList.remove('img-filters--inactive');
+
+    if (sort === false) {
+        restoreHandlers.call(renderPictures, pictures);
+    }
 };
 
 export {renderPictures};
