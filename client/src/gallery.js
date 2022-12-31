@@ -1,18 +1,15 @@
-import {pictureClickHandler} from "./big-picture";
+import {onPictureClick} from "./big-picture.js";
+import {onFilterClick} from "./filters.js";
 
 const picturesListElement = document.querySelector('.pictures');
 const pictureElements = picturesListElement.getElementsByClassName('picture');
 const filtersElement = document.querySelector('.img-filters');
 const filtersFormElement = filtersElement.querySelector('.img-filters__form');
-const filtarsButtonElements = filtersFormElement.querySelectorAll('.img-filters__button');
 
-
-const comparePictures = (pictureA, pictureB) => {
-    const a = pictureA.comments.length;
-    const b = pictureB.comments.length;
-    
-    return b - a;
-};
+// const filtarsButtonElements = filtersFormElement.querySelectorAll('.img-filters__button');
+// for (const button of filtarsButtonElements) {
+//     button.classList.remove('img-filters__button--active');
+// }
 
 const restoreHandlers = function (pictures) {
     if (this.onPictureClick !== undefined) {
@@ -21,26 +18,13 @@ const restoreHandlers = function (pictures) {
     }
 
     this.onPictureClick = (evt) => {
-        pictureClickHandler(evt, pictures);
+        onPictureClick(evt, pictures);
     };
     this.onFilterClick = (evt) => {
-        if (evt.target.matches('.img-filters__button')) {
-            for (const button of filtarsButtonElements) {
-                button.classList.remove('img-filters__button--active');
-            }
-
-            evt.target.classList.add('img-filters__button--active');
-
-            if (evt.target.id === 'filter-default') {
-                renderPictures(pictures, true);
-            } else if (evt.target.id === 'filter-random') {
-                console.log(2);
-            } else if (evt.target.id === 'filter-discussed') {
-                renderPictures(pictures.slice().sort(comparePictures), true);
-            }
-        } 
+        onFilterClick(evt, pictures);
     }
 
+    this.filter = 'default';
     picturesListElement.addEventListener('click', this.onPictureClick);
     filtersFormElement.addEventListener('click', this.onFilterClick);
 }

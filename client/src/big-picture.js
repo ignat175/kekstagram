@@ -106,7 +106,7 @@ const renderComments = (comments, from, to) => {
 
 };
 
-const pictureClickHandler = (evt, pictures) => {
+const onPictureClick = (evt, pictures) => {
     const pictureElement = evt.target.closest('.picture');
 
     if (pictureElement) {
@@ -152,4 +152,4 @@ const pictureClickHandler = (evt, pictures) => {
     }
 };
 
-export {pictureClickHandler, renderCommentsList};
+export {onPictureClick, renderCommentsList};
