@@ -15,8 +15,12 @@ class m221116_000001_create_user_table extends Migration
         $this->createTable('{{%user}}', [
             'id' => $this->primaryKey()->unsigned(),
             'created_at' => $this->timestamp()->notNull()->defaultExpression('CURRENT_TIMESTAMP'),
+            'email' => $this->string(128)->notNull()->unique(),
+            'password_hash' => $this->string(255)->notNull(),
+            'access_token' => $this->string(128)->null()->unique(),
+
             'username' => $this->string(128)->notNull(),
-            'avatar_path' => $this->string(128)->notNull(),
+            'avatar_path' => $this->string(128)->notNull()->unique(),
         ]);
     }
 

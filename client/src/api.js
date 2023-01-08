@@ -3,8 +3,14 @@ const Url = {
     SERVER: 'http://localhost:80/pictures',
 };
 
+const ACCESS_TOKEN = '555';
+
 const getData = (onSuccess) => {
-    fetch(Url.DATA)
+    fetch(Url.DATA, {
+        headers: {
+            Authorization: 'Basic ' + btoa(ACCESS_TOKEN + ':')
+        }
+    })
         .then((response) => response.json())
         .then((data) => {
             onSuccess(data);
@@ -14,7 +20,10 @@ const getData = (onSuccess) => {
 const sendData = (url, onSuccess, onFail, body) => {
     fetch(url, {
         method: 'POST',
-        body: body
+        body: body,
+        headers: {
+            Authorization: 'Basic ' + btoa(ACCESS_TOKEN + ':')
+        }
     })
         .then((response) => {
             if (response.ok) {
@@ -30,6 +39,9 @@ const sendData = (url, onSuccess, onFail, body) => {
 const deleteData = (url, onSuccess, onFail) => {
     fetch(url, {
         method: 'DELETE',
+        headers: {
+            Authorization: 'Basic ' + btoa(ACCESS_TOKEN + ':')
+        }
     })
         .then((response) => {
             if (response.ok) {

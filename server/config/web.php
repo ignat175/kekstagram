@@ -24,7 +24,7 @@ $config = [
         ],
         'user' => [
             'identityClass' => 'app\models\User',
-            'enableAutoLogin' => true,
+            'enableAutoLogin' => false,
         ],
         'errorHandler' => [
             // 'errorAction' => 'site/error',
@@ -53,22 +53,27 @@ $config = [
                 [
                     'class' => 'yii\rest\UrlRule',
                     'controller' => 'picture',
-                    'only' => ['index', 'view', 'create']
+                    'only' => ['index', 'view', 'create', 'options']
                 ],
                 [
                     'class' => 'yii\rest\UrlRule',
                     'controller' => 'comment',
-                    'only' => ['create']
+                    'only' => ['create', 'options']
                 ],
                 [
                     'class' => 'yii\rest\UrlRule',
                     'controller' => 'effect',
-                    'only' => ['index']
+                    'only' => ['index', 'options']
                 ],
                 [
                     'class' => 'yii\rest\UrlRule',
                     'controller' => 'like',
                     'only' => ['create', 'delete', 'options']
+                ],
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'user',
+                    'only' => ['create', 'options']
                 ],
             ],
         ],

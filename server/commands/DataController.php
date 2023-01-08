@@ -2,6 +2,7 @@
 
 namespace app\commands;
 
+use Yii;
 use app\models\Effect;
 use app\models\User;
 use yii\console\Controller;
@@ -69,7 +70,10 @@ class DataController extends Controller
     public function actionImport(): int
     {
         $user = new User();
+        $user->email = 'admin@admin.net';
         $user->username = 'admin';
+        $user->password_hash = Yii::$app->getSecurity()->generatePasswordHash('123');
+        $user->access_token = Yii::$app->getSecurity()->generateRandomString();
         $user->avatar_path = './img/avatar-1.svg';
         $user->save();
 

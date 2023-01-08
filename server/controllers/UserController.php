@@ -2,7 +2,6 @@
 
 namespace app\controllers;
 
-use app\services\HashtagService;
 use Yii;
 use yii\db\ActiveRecordInterface;
 use yii\filters\auth\HttpBasicAuth;
@@ -10,11 +9,10 @@ use yii\filters\Cors;
 use yii\helpers\Url;
 use yii\rest\ActiveController;
 use yii\web\ServerErrorHttpException;
-use yii\web\UploadedFile;
 
-class PictureController extends ActiveController
+class UserController extends ActiveController
 {
-    public $modelClass = 'app\models\Picture';
+    public $modelClass = 'app\models\User';
 
     public function behaviors(): array
     {
@@ -27,7 +25,7 @@ class PictureController extends ActiveController
             'class' => Cors::class,
             'cors' => [
                 'Origin' => [Yii::$app->params['origin']],
-                'Access-Control-Request-Method' => ['GET', 'POST'],
+                'Access-Control-Request-Method' => ['POST'],
                 'Access-Control-Request-Headers' => ['Authorization'],
             ],
         ];
@@ -45,15 +43,10 @@ class PictureController extends ActiveController
     {
         $model = new $this->modelClass;
         $model->load(Yii::$app->getRequest()->getBodyParams(), '');
-        $model->imageFile = UploadedFile::getInstanceByName('filename');
-        $filePath = uniqid("{$model->imageFile->baseName}_") . '.' . $model->imageFile->extension;
-        $model->url = $filePath;
+        $model->password_hash = Yii::$app->getSecurity()->generatePasswordHash($model->password_hash);
+        $model->access_token = Yii::$app->getSecurity()->generateRandomString();
 
         if ($model->save()) {
-            $model->imageFile->saveAs('uploads/' . $filePath);
-            $hashtags = explode(' ', Yii::$app->getRequest()->getBodyParams()['hashtags'] ?? '');
-            (new HashtagService())->processHashtags($hashtags, $model->id);
-
             $response = Yii::$app->getResponse();
             $response->setStatusCode(201);
             $id = implode(',', $model->getPrimaryKey(true));

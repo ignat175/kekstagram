@@ -10,6 +10,7 @@ import {MESSAGE_ERROR, MESSAGE_SUCCESS} from "./const";
 import {setCommentFormSubmit} from "./comment-form";
 import {renderCommentsList} from "./big-picture";
 import {setLikesCountClick, updateLikesCount} from "./likes";
+import "./signup-modal.js";
 
 const socket = new WebSocket('ws://127.0.0.1:2346');
 
