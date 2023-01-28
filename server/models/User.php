@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
@@ -13,16 +14,15 @@ use yii\web\IdentityInterface;
  * @property string $created_at
  * @property string $email
  * @property string $password_hash
- * @property string $access_token
  * @property string $username
  * @property string $avatar_path
  *
  * @property Picture[] $pictures
  * @property Comment[] $comments
+ * @property AccessToken[] $tokens
  */
 class User extends ActiveRecord implements IdentityInterface
 {
-    public $password;
     /**
      * @return string
      */
@@ -50,7 +50,10 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
-        return static::findOne(['access_token' => $token]);
+//        $accessToken = AccessToken::findOne(['token' => $token]);
+//        return static::findOne(['id' => $accessToken->user_id]);
+
+        return static::findOne(AccessToken::findOne(['token' => $token]));
     }
 
     /**
@@ -78,6 +81,11 @@ class User extends ActiveRecord implements IdentityInterface
         // TODO: Implement validateAuthKey() method.
     }
 
+    public function validatePassword(string $password): bool
+    {
+        return Yii::$app->security->validatePassword($password, $this->password_hash);
+    }
+
     public function rules(): array
     {
         return [
@@ -90,10 +98,6 @@ class User extends ActiveRecord implements IdentityInterface
             [['password_hash'], 'required'],
             [['password_hash'], 'trim'],
             [['password_hash'], 'string', 'max' => 255],
-
-            [['access_token'], 'trim'],
-            [['access_token'], 'string', 'max' => 128],
-            [['access_token'], 'unique'],
 
             [['username'], 'required'],
             [['username'], 'trim'],
@@ -113,6 +117,7 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             // название поля "name", атрибут "username"
+            'id' => 'id',
             'name' => 'username',
             'avatar' => 'avatar_path',
         ];
@@ -132,5 +137,13 @@ class User extends ActiveRecord implements IdentityInterface
     public function getComments(): ActiveQuery
     {
         return $this->hasMany(Comment::class, ['user_id' => 'id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getTokens(): ActiveQuery
+    {
+        return $this->hasMany(AccessToken::class, ['user_id' => 'id']);
     }
 }

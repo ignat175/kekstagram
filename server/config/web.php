@@ -52,6 +52,16 @@ $config = [
             'rules' => [
                 [
                     'class' => 'yii\rest\UrlRule',
+                    'controller' => 'user',
+                    'only' => ['create', 'options']
+                ],
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'token',
+                    'only' => ['create', 'delete', 'options']
+                ],
+                [
+                    'class' => 'yii\rest\UrlRule',
                     'controller' => 'picture',
                     'only' => ['index', 'view', 'create', 'options']
                 ],
@@ -69,11 +79,6 @@ $config = [
                     'class' => 'yii\rest\UrlRule',
                     'controller' => 'like',
                     'only' => ['create', 'delete', 'options']
-                ],
-                [
-                    'class' => 'yii\rest\UrlRule',
-                    'controller' => 'user',
-                    'only' => ['create', 'options']
                 ],
             ],
         ],

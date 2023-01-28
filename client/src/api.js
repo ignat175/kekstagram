@@ -1,14 +1,7 @@
-const Url = {
-    DATA: 'http://localhost:80/pictures',
-    SERVER: 'http://localhost:80/pictures',
-};
-
-const ACCESS_TOKEN = '555';
-
-const getData = (onSuccess) => {
-    fetch(Url.DATA, {
+const getData = (url, onSuccess) => {
+    fetch(url, {
         headers: {
-            Authorization: 'Basic ' + btoa(ACCESS_TOKEN + ':')
+            // Authorization: 'Basic ' + btoa(ACCESS_TOKEN + ':')
         }
     })
         .then((response) => response.json())
@@ -22,7 +15,7 @@ const sendData = (url, onSuccess, onFail, body) => {
         method: 'POST',
         body: body,
         headers: {
-            Authorization: 'Basic ' + btoa(ACCESS_TOKEN + ':')
+            // Authorization: 'Basic ' + btoa(ACCESS_TOKEN + ':')
         }
     })
         .then((response) => {
@@ -36,11 +29,42 @@ const sendData = (url, onSuccess, onFail, body) => {
             alert(2);
         });
 };
+
+let responseOk = null;
+const sendData2 = (url, onSuccess, onFail, body) => {
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            // Authorization: 'Basic ' + btoa(ACCESS_TOKEN + ':')
+        },
+        body,
+    })
+        .then((response) => {
+            responseOk = response.ok;
+
+            if (response.status === 422) {
+                return response.json();
+            } else {
+                return JSON.stringify([]);
+            }
+        })
+        .then((errors) => {
+            if (responseOk) {
+                onSuccess();
+            } else {
+                onFail(errors);
+            }
+        })
+        .catch(() => {
+            alert(2);
+        });
+};
+
 const deleteData = (url, onSuccess, onFail) => {
     fetch(url, {
         method: 'DELETE',
         headers: {
-            Authorization: 'Basic ' + btoa(ACCESS_TOKEN + ':')
+            // Authorization: 'Basic ' + btoa(ACCESS_TOKEN + ':')
         }
     })
         .then((response) => {
@@ -55,4 +79,4 @@ const deleteData = (url, onSuccess, onFail) => {
         });
 }
 
-export {getData, sendData, deleteData};
+export {getData, sendData, sendData2, deleteData};

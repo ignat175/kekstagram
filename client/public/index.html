@@ -8,7 +8,8 @@
   <link rel="stylesheet" href="./css/style.css">
   <link rel="stylesheet" href="./nouislider/nouislider.css">
   <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="./css/bootstrap.css">
+  <link rel="stylesheet" href="./css/bootstrap.css">
+  <link rel="stylesheet" href="./css/signup-form.css">
   <title>Кекстаграм</title>
     <style>
         .img-upload__message--loading .progress {
@@ -23,7 +24,7 @@
     </style>
 </head>
 
-<body>
+<body class="modal-open">
   <main>
 
     <!-- Фильтрация изображений от других пользователей -->
@@ -203,38 +204,82 @@
       </div>
       <ul class="page-footer__contacts  contacts">
         <li><a href="https://twitter.com/htmlacademy_ru" class="contacts__link  contacts__link--twitter">Twitter</a></li>
-        <li><a href="https://www.instagram.com/htmlacademy/" class="contacts__link  contacts__link--instagram">Instagtam</a></li>
+        <li><a href="https://www.instagram.com/htmlacademy/" class="contacts__link  contacts__link--instagram">Instagram</a></li>
         <li><a href="https://www.facebook.com/htmlacademy" class="contacts__link  contacts__link--facebook">Facebook</a></li>
         <li><a href="https://vk.com/htmlacademy" class="contacts__link  contacts__link--vk">VK</a></li>
       </ul>
     </div>
   </footer>
 
-  <div class="signup-modal hidden">
-    <div class="signup-modal__inner">
-      <form action="" method="post">
-        <div class="form-group">
-          <label for="email">email</label>
-          <input id="email" type="text" name="email">
+  <div class="modal fade show" id="signupModal" style="display: block; color: #212529;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Регистрация</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form novalidate autocomplete="off">
+                    <div class="mb-3">
+                        <label for="signup-email" class="form-label">Email address</label>
+                        <input type="email" name="email" class="form-control" id="signup-email" required>
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="signup-password" class="form-label">Password</label>
+                        <input type="password" name="password_hash" class="form-control" id="signup-password" required>
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="signup-username" class="form-label">Username</label>
+                        <input type="text" name="username" class="form-control" id="signup-username">
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="signup-avatar" class="form-label">Avatar</label>
+                        <input type="text" name="avatar_path" class="form-control" id="signup-avatar" value="img/avatar-1.svg">
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+                    </div>
+                </form>
+            </div>
         </div>
-        <div class="form-group">
-          <label for="password_hash">password_hash</label>
-          <input id="password_hash" type="text" name="password_hash">
-        </div>
-        <div class="form-group">
-          <label for="username">username</label>
-          <input id="username" type="text" name="username">
-        </div>
-        <div class="form-group">
-          <input type="hidden" name="avatar_path" value="./img/avatar-1.svg">
-        </div>
-
-        <div class="form-group">
-          <input type="submit" name="key">
-        </div>
-      </form>
     </div>
-  </div>
+</div>
+<div class="modal-backdrop fade show"></div>
+
+  <!-- <div class="signup-modal hidden">
+        <div class="signup-modal__inner">
+            <h2>Signup-form</h2>
+            <form action="" method="post" name="signup">
+                <div class="form-group">
+                    <label for="email">email</label>
+                    <input id="email" type="email" name="email" required>
+                    <p style="display: none; font-weight: 700; color: red;"></p>
+                </div>
+                <div class="form-group">
+                    <label for="password_hash">password_hash</label>
+                    <input id="password_hash" type="password" name="password_hash" required>
+                    <p style="display: none; font-weight: 700; color: red;"></p>
+                </div>
+                <div class="form-group">
+                    <label for="username">username</label>
+                    <input id="username" type="text" name="username" required>
+                    <p style="display: none; font-weight: 700; color: red;"></p>
+                </div>
+                <div class="form-group">
+                    <label for="avatar_path">avatar_path</label>
+                    <input id="avatar_path" type="text" name="avatar_path" value="./img/avatar-1.svg">
+                    <p style="display: none; font-weight: 700; color: red;"></p>
+                </div>
+                <div class="form-group">
+                    <input type="submit" name="key">
+                </div>
+            </form>
+        </div>
+  </div> -->
 
   <!-- Шаблон изображения случайного пользователя -->
   <template id="picture">
@@ -291,13 +336,6 @@
       <p class="social__text">Мега фото! Просто обалдеть. Как вам так удалось?</p>
     </li>
   </template>
-
-    <!-- <script src="./js/const.js"></script> -->
-    <!-- <script src="./js/utils.js"></script> -->
-    <!-- <script src="./js/data.js"></script> -->
-    <!-- <script src="./js/gallery.js"></script> -->
-    <!-- <script src="./js/big-picture.js"></script> -->
-    <!-- <script src="./js/upload-form.js"></script> -->
 
     <script src="./nouislider/nouislider.js"></script>
     <script src="./bundle.js"></script>
