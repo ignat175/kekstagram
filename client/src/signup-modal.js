@@ -3,25 +3,24 @@ import {sendData2} from "./api.js";
 const signupModalElement = document.querySelector('#signupModal');
 const signupForm = signupModalElement.querySelector('form');
 const submitButton = signupForm.querySelector('button[type=submit]');
+const modalBackdropElement = document.querySelector('.modal-backdrop');
 
-const SIGNUP_FIELDS = ['email', 'password_hash', 'username', 'avatar_path'];
+const SIGNUP_FIELDS = ['email', 'password_hash', 'username', 'avatar'];
 
-document.addEventListener('keydown', (evt) => {
-   if (evt.code === 'Digit1' && evt.ctrlKey) {
-    //    clearValidationErrors();
-       signupModalElement.classList.add('show');
-       signupModalElement.style.display = 'block';
-       document.body.classList.add('modal-open');
-   }
-});
+const openSignupModal = () => {
+    clearValidationErrors();
+    signupModalElement.classList.add('show');
+    signupModalElement.style.display = 'block';
+    modalBackdropElement.style.display = 'block';
+    document.body.classList.add('modal-open');
+};
 
-document.addEventListener('keydown', (evt) => {
-   if (evt.code === 'Escape') {
-      signupModalElement.classList.remove('show');
-      signupModalElement.style.display = 'none';
-      document.body.classList.remove('modal-open');
-   }
-});
+const closeSignupModal = () => {
+    signupModalElement.classList.remove('show');
+    signupModalElement.style.display = 'none';
+    modalBackdropElement.style.display = 'none';
+    document.body.classList.remove('modal-open');
+};
 
 const blockSubmitButton = () => {
     submitButton.disabled = true;
@@ -35,50 +34,52 @@ const unblockSubmitButton = (errors = null) => {
     submitButton.style.cursor = 'initial';
 
     if (errors) {
+        clearValidationErrors();
         renderValidationErrors(errors);
     }
 };
 
-// const clearValidationErrors = () => {
-//     for (const field of SIGNUP_FIELDS) {
-//         const inputElement = signupForm.querySelector(`[name=${field}]`);
-//         inputElement.style.outline = 'none';
-//         inputElement.nextElementSibling.textContent = '';
-//         inputElement.nextElementSibling.style.display = 'none';
-//     }
-// };
+const clearValidationErrors = () => {
+    for (const field of SIGNUP_FIELDS) {
+        const inputElement = signupForm.querySelector(`[name=${field}]`);
+        inputElement.classList.remove('is-invalid');
+        inputElement.nextElementSibling.textContent = '';       
+    }
+};
 
 const renderValidationErrors = (errors) => {
     console.log(errors);
     let i = 0;
     while (i < errors.length) {
-        // if (SIGNUP_FIELDS.includes(errors[i].field)) {
-            const inputElement = signupForm.querySelector(`[name=${errors[i].field}]`);  
+        if (SIGNUP_FIELDS.includes(errors[i].field)) {            
+            const inputElement = signupForm.querySelector(`[name=${errors[i].field}]`);        
             inputElement.classList.add('is-invalid');
             inputElement.nextElementSibling.textContent = errors[i].message;
-        // }
+        }
         i++;
     }
 };
 
-signupForm.addEventListener('submit', (evt) => {
-   evt.preventDefault();
+const setSignupFormSubmit = (onSuccess) => {
+    signupForm.addEventListener('submit', (evt) => {
+        evt.preventDefault();
+     
+        blockSubmitButton();
+        setTimeout(() => {
+         sendData2(
+             'http://localhost:80/users',
+             () => {
+                 unblockSubmitButton();
+                 onSuccess(); 
+             },
+             (errors) => {
+                 unblockSubmitButton(errors);   
+             },
+             new FormData(evt.target)
+         );
+        }, 1000);
+     });
+};
 
-   blockSubmitButton();
-   setTimeout(() => {
-    sendData2(
-        'http://localhost:80/users',
-        () => {
-            unblockSubmitButton(); 
 
-            signupModalElement.classList.remove('show');
-            signupModalElement.style.display = 'none';
-            document.body.classList.remove('modal-open');
-        },
-        (errors) => {
-            unblockSubmitButton(errors);   
-        },
-        new FormData(evt.target)
-    );
-   }, 1000);
-});
+export {openSignupModal, closeSignupModal, setSignupFormSubmit};

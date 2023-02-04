@@ -24,7 +24,7 @@
     </style>
 </head>
 
-<body class="modal-open">
+<body>
   <main>
 
     <!-- Фильтрация изображений от других пользователей -->
@@ -211,7 +211,76 @@
     </div>
   </footer>
 
-  <div class="modal fade show" id="signupModal" style="display: block; color: #212529;">
+  <!-- loginModal -->
+  <div class="modal fade" id="loginModal" style="display: none; color: #212529;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Вход</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form novalidate autocomplete="off">
+                    <div class="mb-3">
+                        <label for="login-email" class="form-label">Email address</label>
+                        <input type="email" name="email" class="form-control" id="login-email">
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="login-password" class="form-label">Password</label>
+                        <input type="password" name="password" class="form-control" id="login-password">
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary">Войти</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+  <!-- signupModal -->
+  <div class="modal fade" id="signupModal" style="display: none; color: #212529;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Регистрация</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form novalidate autocomplete="off">
+                    <div class="mb-3">
+                        <label for="signup-email" class="form-label">Email address</label>
+                        <input type="email" name="email" class="form-control" id="signup-email" required>
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="signup-password" class="form-label">Password</label>
+                        <input type="password" name="password_hash" class="form-control" id="signup-password" required>
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="signup-username" class="form-label">Username</label>
+                        <input type="text" name="username" class="form-control" id="signup-username">
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="signup-avatar" class="form-label" style="display: inline-block">Avatar</label>
+                        <input type="file" name="avatar" class="form-control" id="signup-avatar">
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class ="modal-backdrop fade show" style="display: none;"></div> 
+
+  <!-- <div class="modal fade show" id="signupModal" style="display: block; color: #212529;">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -247,39 +316,7 @@
             </div>
         </div>
     </div>
-</div>
-<div class="modal-backdrop fade show"></div>
-
-  <!-- <div class="signup-modal hidden">
-        <div class="signup-modal__inner">
-            <h2>Signup-form</h2>
-            <form action="" method="post" name="signup">
-                <div class="form-group">
-                    <label for="email">email</label>
-                    <input id="email" type="email" name="email" required>
-                    <p style="display: none; font-weight: 700; color: red;"></p>
-                </div>
-                <div class="form-group">
-                    <label for="password_hash">password_hash</label>
-                    <input id="password_hash" type="password" name="password_hash" required>
-                    <p style="display: none; font-weight: 700; color: red;"></p>
-                </div>
-                <div class="form-group">
-                    <label for="username">username</label>
-                    <input id="username" type="text" name="username" required>
-                    <p style="display: none; font-weight: 700; color: red;"></p>
-                </div>
-                <div class="form-group">
-                    <label for="avatar_path">avatar_path</label>
-                    <input id="avatar_path" type="text" name="avatar_path" value="./img/avatar-1.svg">
-                    <p style="display: none; font-weight: 700; color: red;"></p>
-                </div>
-                <div class="form-group">
-                    <input type="submit" name="key">
-                </div>
-            </form>
-        </div>
-  </div> -->
+</div> -->
 
   <!-- Шаблон изображения случайного пользователя -->
   <template id="picture">

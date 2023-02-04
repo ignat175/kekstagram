@@ -6,6 +6,7 @@ use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "user".
@@ -16,6 +17,7 @@ use yii\web\IdentityInterface;
  * @property string $password_hash
  * @property string $username
  * @property string $avatar_path
+ * @property UploadedFile $avatar
  *
  * @property Picture[] $pictures
  * @property Comment[] $comments
@@ -23,6 +25,8 @@ use yii\web\IdentityInterface;
  */
 class User extends ActiveRecord implements IdentityInterface
 {
+    public $avatar;
+
     /**
      * @return string
      */
@@ -50,9 +54,6 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
-//        $accessToken = AccessToken::findOne(['token' => $token]);
-//        return static::findOne(['id' => $accessToken->user_id]);
-
         return static::findOne(AccessToken::findOne(['token' => $token]));
     }
 
@@ -107,6 +108,8 @@ class User extends ActiveRecord implements IdentityInterface
             [['avatar_path'], 'trim'],
             [['avatar_path'], 'string', 'max' => 128],
             [['avatar_path'], 'unique'],
+
+            [['avatar'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg, jpeg'],
         ];
     }
 
