@@ -53,31 +53,37 @@ $config = [
                 [
                     'class' => 'yii\rest\UrlRule',
                     'controller' => 'user',
+                    'pluralize' => true,
                     'only' => ['create', 'options']
                 ],
                 [
                     'class' => 'yii\rest\UrlRule',
                     'controller' => 'token',
+                    'pluralize' => true,
                     'only' => ['create', 'delete', 'options']
                 ],
                 [
                     'class' => 'yii\rest\UrlRule',
                     'controller' => 'picture',
+                    'pluralize' => true,
                     'only' => ['index', 'view', 'create', 'options']
                 ],
                 [
                     'class' => 'yii\rest\UrlRule',
                     'controller' => 'comment',
+                    'pluralize' => true,
                     'only' => ['create', 'options']
                 ],
                 [
                     'class' => 'yii\rest\UrlRule',
                     'controller' => 'effect',
+                    'pluralize' => true,
                     'only' => ['index', 'options']
                 ],
                 [
                     'class' => 'yii\rest\UrlRule',
                     'controller' => 'like',
+                    'pluralize' => true,
                     'only' => ['create', 'delete', 'options']
                 ],
             ],

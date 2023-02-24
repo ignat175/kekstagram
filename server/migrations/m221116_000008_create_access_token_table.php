@@ -15,7 +15,7 @@ class m221116_000008_create_access_token_table extends Migration
         $this->createTable('{{%access_token}}', [
             'id' => $this->primaryKey()->unsigned(),
             'created_at' => $this->timestamp()->notNull()->defaultExpression('CURRENT_TIMESTAMP'),
-            'token' => $this->string(128)->notNull(),
+            'token' => $this->string(128)->notNull()->unique(),
             'user_id' => $this->integer()->unsigned()->notNull(),
         ]);
 

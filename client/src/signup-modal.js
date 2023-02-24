@@ -70,7 +70,7 @@ const setSignupFormSubmit = (onSuccess) => {
              'http://localhost:80/users',
              () => {
                  unblockSubmitButton();
-                 onSuccess(); 
+                 onSuccess();
              },
              (errors) => {
                  unblockSubmitButton(errors);   
@@ -80,6 +80,5 @@ const setSignupFormSubmit = (onSuccess) => {
         }, 1000);
      });
 };
-
 
 export {openSignupModal, closeSignupModal, setSignupFormSubmit};

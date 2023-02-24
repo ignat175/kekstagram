@@ -278,45 +278,23 @@
         </div>
     </div>
 </div>
-<div class ="modal-backdrop fade show" style="display: none;"></div> 
 
-  <!-- <div class="modal fade show" id="signupModal" style="display: block; color: #212529;">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5">Регистрация</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form novalidate autocomplete="off">
-                    <div class="mb-3">
-                        <label for="signup-email" class="form-label">Email address</label>
-                        <input type="email" name="email" class="form-control" id="signup-email" required>
-                        <div class="invalid-feedback"></div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="signup-password" class="form-label">Password</label>
-                        <input type="password" name="password_hash" class="form-control" id="signup-password" required>
-                        <div class="invalid-feedback"></div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="signup-username" class="form-label">Username</label>
-                        <input type="text" name="username" class="form-control" id="signup-username">
-                        <div class="invalid-feedback"></div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="signup-avatar" class="form-label">Avatar</label>
-                        <input type="text" name="avatar_path" class="form-control" id="signup-avatar" value="img/avatar-1.svg">
-                        <div class="invalid-feedback"></div>
-                    </div>
-                    <div class="d-grid gap-2">
-                        <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div> -->
+ <!-- UserModal -->
+ <div class="modal fade" id="userModal" style="display: none; color: #212529;">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h1 class="modal-title fs-5">Личный кабинет</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="wrapper"></div>
+            <button id="logout">Выход</button>
+          </div>
+      </div>
+  </div>
+</div>
+<div class="modal-backdrop fade" style="display: none;"></div>
 
   <!-- Шаблон изображения случайного пользователя -->
   <template id="picture">

@@ -123,6 +123,7 @@ class User extends ActiveRecord implements IdentityInterface
             'id' => 'id',
             'name' => 'username',
             'avatar' => 'avatar_path',
+            'email' => 'email',
         ];
     }
 

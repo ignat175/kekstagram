@@ -34,6 +34,7 @@ class AccessToken extends ActiveRecord
             [['token'], 'required'],
             [['token'], 'trim'],
             [['token'], 'string', 'max' => 128],
+            [['token'], 'unique'],
 
             [['user_id'], 'required'],
             [['user_id'], 'integer'],

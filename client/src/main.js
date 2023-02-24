@@ -1,21 +1,62 @@
 import { renderPictures } from "./gallery.js";
 import {getData} from "./api.js";
-import "./slider.js";
-import "./validation.js";
+// import "./slider.js";
+// import "./validation.js";
 import {setPictureFormSubmit} from "./picture-form.js";
 import {closeUploadModal} from "./picture-form.js";
-import "./zoom.js";
+// import "./zoom.js";
 import {showMessage} from "./messages";
 import {MESSAGE_ERROR, MESSAGE_SUCCESS} from "./const";
 import {setCommentFormSubmit} from "./comment-form";
 import {renderCommentsList} from "./big-picture";
 import {setLikesCountClick, updateLikesCount} from "./likes";
+import {openLoginModal, closeLoginModal, setLoginFormSubmit} from "./login-modal.js";
 import {openSignupModal, closeSignupModal, setSignupFormSubmit} from "./signup-modal.js";
+import {openUserModal, closeUserModal} from "./user-modal.js";
 
-openSignupModal();
+// openLoginModal();
 
-setSignupFormSubmit(() => {
-   closeSignupModal();
+setLoginFormSubmit((token) => {
+   closeLoginModal();
+   localStorage.setItem('user', JSON.stringify(token));
+});
+
+setSignupFormSubmit(closeSignupModal);
+
+document.addEventListener('keydown', (evt) => {
+   if (evt.code === 'Digit1' && evt.altKey) {
+      if (!localStorage.getItem('user')) {
+         closeUserModal();
+         closeLoginModal();
+         openSignupModal();
+      } else {
+         alert('Регистрация доступна только для гостя!');
+      }
+   }
+});
+
+document.addEventListener('keydown', (evt) => {
+   if (evt.code === 'Digit2' && evt.altKey) {
+      if (!localStorage.getItem('user')) {
+         closeUserModal();
+         closeSignupModal();
+         openLoginModal();
+      } else {
+         alert('Вход доступен только для гостя!');
+      }
+   }
+});
+
+document.addEventListener('keydown', (evt) => {
+   if (evt.code === 'Digit3' && evt.altKey) {
+      if (localStorage.getItem('user')) {
+         closeLoginModal();
+         closeSignupModal();
+         openUserModal();
+      } else {
+         alert('Выполните вход!');
+      }
+   }
 });
 // const socket = new WebSocket('ws://127.0.0.1:2346');
 

@@ -60,6 +60,38 @@ const sendData2 = (url, onSuccess, onFail, body) => {
         });
 };
 
+let resp = null;
+const sendData3 = (url, onSuccess, onFail, body) => {
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            // Authorization: 'Basic ' + btoa(ACCESS_TOKEN + ':')
+        },
+        body,
+    })
+        .then((response) => {
+            responseOk = response.ok;
+            resp = response;
+
+            // if (response.status === 422) {
+                return response.json();
+            // } else {
+                // return JSON.stringify([]);
+            // }
+        })
+        .then((data) => {
+            if (responseOk) {
+                onSuccess(data);
+            } else {
+                const errors = JSON.parse(resp.headers.get('errors'));
+                onFail(errors);
+            }
+        })
+        .catch(() => {
+            alert(2);
+        });
+};
+
 const deleteData = (url, onSuccess, onFail) => {
     fetch(url, {
         method: 'DELETE',
@@ -79,4 +111,4 @@ const deleteData = (url, onSuccess, onFail) => {
         });
 }
 
-export {getData, sendData, sendData2, deleteData};
+export {getData, sendData, sendData2, sendData3, deleteData};
